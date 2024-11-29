@@ -8,7 +8,7 @@ export const Categories = () => {
   const { navigate } = useNavigation<Routes>();
   return (
     <FlatList
-      style={{ backgroundColor: "#24180f" }}
+      style={{ backgroundColor: "#3a3122" }}
       data={CATEGORIES}
       renderItem={(itemData) => (
         <CategoryContainer

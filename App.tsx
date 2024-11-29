@@ -18,8 +18,19 @@ export type Routes = NavigationProp<RootStackParamList>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>({
   initialRouteName: "MealsCategories",
+  screenOptions: {
+    headerTintColor: "white",
+    headerTitleStyle: { color: "white" },
+    headerStyle: { backgroundColor: "#351401" },
+    contentStyle: { backgroundColor: "#3a3122" },
+  },
   screens: {
-    MealsCategories: Categories,
+    MealsCategories: {
+      screen: Categories,
+      options: {
+        title: "All categories",
+      },
+    },
     MealsOverview: MealsScreen,
   },
 });
@@ -34,12 +45,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
