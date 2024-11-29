@@ -13,7 +13,9 @@ export const MealsScreen = ({ route }: Props) => {
     <FlatList
       data={meals}
       style={styles.rootView}
-      renderItem={(itemData) => <MealCard meal={itemData.item} />}
+      renderItem={(itemData) => (
+        <MealCard meal={itemData.item} onPress={() => {}} />
+      )}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />

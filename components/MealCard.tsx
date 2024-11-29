@@ -1,15 +1,28 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Meal from "../models/meal";
 
-export const MealCard = ({ meal }: { meal: Meal }) => {
+export const MealCard = ({
+  meal,
+  onPress,
+}: {
+  meal: Meal;
+  onPress: () => void;
+}) => {
   return (
-    <View style={styles.container}>
+    <Pressable
+      onPress={onPress}
+      style={(pressInfo) =>
+        pressInfo.pressed
+          ? [styles.container, { opacity: 0.5 }]
+          : [styles.container]
+      }
+    >
       <Image source={{ uri: meal.imageUrl }} style={styles.image} />
       <Text style={styles.title}>{meal.title}</Text>
       <Text
         style={styles.subtitle}
       >{`${meal.duration} ${meal.affordability}`}</Text>
-    </View>
+    </Pressable>
   );
 };
 
