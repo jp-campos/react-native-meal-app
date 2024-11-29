@@ -33,24 +33,32 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
       <Title>{meal.title}</Title>
       <Subtitle>Ingredients</Subtitle>
-      <FlatList
-        style={styles.list}
-        data={meal.ingredients}
-        renderItem={(itemData) => {
+      <ScrollView nestedScrollEnabled style={styles.list}>
+        {meal.ingredients.map((ingredient, i) => {
+          const separator = i == 0 ? {} : { marginTop: 10 };
           return (
-            <IngredientContainer
-              key={itemData.item}
-              ingredient={itemData.item}
-            />
+            <View style={separator}>
+              <Item key={ingredient} ingredient={ingredient} />
+            </View>
           );
-        }}
-        ItemSeparatorComponent={() => <View style={{ marginTop: 10 }} />}
-      />
+        })}
+      </ScrollView>
+      <Subtitle>Steps</Subtitle>
+      <ScrollView nestedScrollEnabled style={styles.list}>
+        {meal.ingredients.map((ingredient, i) => {
+          const separator = i == 0 ? {} : { marginTop: 10 };
+          return (
+            <View style={separator}>
+              <Item key={ingredient} ingredient={ingredient} />
+            </View>
+          );
+        })}
+      </ScrollView>
     </ScrollView>
   );
 };
 
-const IngredientContainer = ({ ingredient }: { ingredient: string }) => {
+const Item = ({ ingredient }: { ingredient: string }) => {
   return (
     <View style={styles.ingredientCard}>
       <Text style={styles.ingredientText}>{ingredient}</Text>
@@ -66,8 +74,8 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    height: 250,
-    paddingHorizontal: 30,
+    height: 200,
+    marginHorizontal: 30,
   },
   ingredientCard: {
     backgroundColor: Colors.accent500,
