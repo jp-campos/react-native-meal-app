@@ -29,7 +29,7 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
   if (!meal) return <></>;
 
   return (
-    <ScrollView>
+    <ScrollView nestedScrollEnabled>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
       <Title>{meal.title}</Title>
       <Subtitle>Ingredients</Subtitle>
@@ -37,19 +37,20 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
         {meal.ingredients.map((ingredient, i) => {
           const separator = i == 0 ? {} : { marginTop: 10 };
           return (
-            <View style={separator}>
-              <Item key={ingredient} ingredient={ingredient} />
+            <View key={ingredient} style={separator}>
+              <Item ingredient={ingredient} />
             </View>
           );
         })}
       </ScrollView>
+      <View style={{ marginTop: 10 }} />
       <Subtitle>Steps</Subtitle>
       <ScrollView nestedScrollEnabled style={styles.list}>
         {meal.ingredients.map((ingredient, i) => {
           const separator = i == 0 ? {} : { marginTop: 10 };
           return (
-            <View style={separator}>
-              <Item key={ingredient} ingredient={ingredient} />
+            <View key={ingredient} style={separator}>
+              <Item ingredient={ingredient} />
             </View>
           );
         })}
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
 
   list: {
     height: 200,
-    marginHorizontal: 30,
+    marginHorizontal: 40,
   },
   ingredientCard: {
     backgroundColor: Colors.accent500,
