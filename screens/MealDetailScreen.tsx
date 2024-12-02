@@ -32,6 +32,12 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
     <ScrollView nestedScrollEnabled>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
       <Title>{meal.title}</Title>
+      <View style={styles.mealDataContainer}>
+        <Text style={styles.text}>{meal.duration} min</Text>
+        <Text style={styles.text}>{meal.affordability}</Text>
+        <Text style={styles.text}>{meal.complexity}</Text>
+      </View>
+
       <Subtitle>Ingredients</Subtitle>
       <ScrollView nestedScrollEnabled style={styles.list}>
         {meal.ingredients.map((ingredient, i) => {
@@ -73,7 +79,14 @@ const styles = StyleSheet.create({
     height: 300,
     resizeMode: "cover",
   },
-
+  mealDataContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10,
+  },
+  text: {
+    color: "white",
+  },
   list: {
     height: 200,
     marginHorizontal: 40,
