@@ -37,30 +37,9 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
         <Text style={styles.text}>{meal.affordability}</Text>
         <Text style={styles.text}>{meal.complexity}</Text>
       </View>
-
-      <Subtitle>Ingredients</Subtitle>
-      <ScrollView nestedScrollEnabled style={styles.list}>
-        {meal.ingredients.map((ingredient, i) => {
-          const separator = i == 0 ? {} : { marginTop: 10 };
-          return (
-            <View key={ingredient} style={separator}>
-              <Item ingredient={ingredient} />
-            </View>
-          );
-        })}
-      </ScrollView>
+      <SectionList items={meal.ingredients} title="Ingredients" />
       <View style={{ marginTop: 10 }} />
-      <Subtitle>Steps</Subtitle>
-      <ScrollView nestedScrollEnabled style={styles.list}>
-        {meal.ingredients.map((ingredient, i) => {
-          const separator = i == 0 ? {} : { marginTop: 10 };
-          return (
-            <View key={ingredient} style={separator}>
-              <Item ingredient={ingredient} />
-            </View>
-          );
-        })}
-      </ScrollView>
+      <SectionList items={meal.steps} title="Steps" />
     </ScrollView>
   );
 };
@@ -70,6 +49,24 @@ const Item = ({ ingredient }: { ingredient: string }) => {
     <View style={styles.ingredientCard}>
       <Text style={styles.ingredientText}>{ingredient}</Text>
     </View>
+  );
+};
+
+const SectionList = ({ title, items }: { title: string; items: string[] }) => {
+  return (
+    <>
+      <Subtitle>Ingredients</Subtitle>
+      <ScrollView nestedScrollEnabled style={styles.list}>
+        {items.map((item, i) => {
+          const separator = i == 0 ? {} : { marginTop: 10 };
+          return (
+            <View key={item} style={separator}>
+              <Item ingredient={item} />
+            </View>
+          );
+        })}
+      </ScrollView>
+    </>
   );
 };
 
