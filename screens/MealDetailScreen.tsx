@@ -29,7 +29,7 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
   if (!meal) return <></>;
 
   return (
-    <ScrollView nestedScrollEnabled>
+    <ScrollView nestedScrollEnabled style={{ marginBottom: 10 }}>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
       <Title>{meal.title}</Title>
       <View style={styles.mealDataContainer}>
@@ -55,7 +55,7 @@ const Item = ({ ingredient }: { ingredient: string }) => {
 const SectionList = ({ title, items }: { title: string; items: string[] }) => {
   return (
     <>
-      <Subtitle>Ingredients</Subtitle>
+      <Subtitle>{title}</Subtitle>
       <ScrollView nestedScrollEnabled style={styles.list}>
         {items.map((item, i) => {
           const separator = i == 0 ? {} : { marginTop: 10 };
