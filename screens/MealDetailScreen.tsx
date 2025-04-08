@@ -15,6 +15,8 @@ import { useEffect, useLayoutEffect } from "react";
 import { Colors } from "../constants/colors";
 import { Title } from "../components/Title";
 import { Subtitle } from "../components/Subtitle";
+import { FavoriteBtn } from "../components/FavoriteBtn";
+
 
 type Props = NativeStackScreenProps<RootStackParamList, "MealDetailScreen">;
 
@@ -24,7 +26,7 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <Button title="Tap me" onPress={onHeaderBtnPressed} />
+        return <FavoriteBtn onPressed={() => console.log('hola')} />;
       }
     })
   }, [])
