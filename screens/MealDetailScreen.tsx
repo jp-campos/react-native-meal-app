@@ -1,4 +1,5 @@
 import {
+  Button,
   FlatList,
   Image,
   ScrollView,
@@ -10,7 +11,7 @@ import Meal from "../models/meal";
 import { MEALS } from "../data/dummy_data";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Colors } from "../constants/colors";
 import { Title } from "../components/Title";
 import { Subtitle } from "../components/Subtitle";
@@ -20,6 +21,14 @@ type Props = NativeStackScreenProps<RootStackParamList, "MealDetailScreen">;
 export const MealDetailScreen = ({ navigation, route }: Props) => {
   const meal = MEALS.find((meal) => meal.id == route.params.mealId);
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return <Button title="Tap me" onPress={onHeaderBtnPressed} />
+      }
+    })
+  }, [])
+
   useEffect(() => {
     navigation.setOptions({
       title: meal?.title ?? "Meal not found",
@@ -27,6 +36,10 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
   }, [navigation, meal]);
 
   if (!meal) return <></>;
+
+  const onHeaderBtnPressed = () => {
+    console.log('pressed')
+  }
 
   return (
     <ScrollView nestedScrollEnabled style={{ marginBottom: 10 }}>
