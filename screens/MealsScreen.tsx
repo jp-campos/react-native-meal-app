@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MealCard } from "../components/MealCard";
 import { CATEGORIES, MEALS } from "../data/dummy_data";
 import { useEffect } from "react";
+import { MealsList } from "../components/MealsList";
 type Props = NativeStackScreenProps<RootStackParamList, "MealsOverview">;
 
 export const MealsScreen = ({ navigation, route }: Props) => {
@@ -19,26 +20,14 @@ export const MealsScreen = ({ navigation, route }: Props) => {
   }, [navigation, route]);
 
   return (
-    <FlatList
-      data={meals}
-      style={styles.rootView}
-      renderItem={(itemData) => (
-        <MealCard
-          meal={itemData.item}
-          onPress={() => {
-            navigation.navigate("MealDetailScreen", {
-              mealId: itemData.item.id,
-            });
-          }}
-        />
-      )}
-      keyExtractor={(item) => item.id}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
+    <MealsList
+      meals={meals}
+      onMealPressed={(id) => {
+        navigation.navigate("MealDetailScreen", {
+          mealId: id,
+        });
+      }}
     />
   );
 };
 
-const styles = StyleSheet.create({
-  rootView: { flex: 1, paddingHorizontal: 20 },
-  separator: { marginTop: 20 },
-});

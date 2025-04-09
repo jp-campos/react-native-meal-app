@@ -11,11 +11,12 @@ import Meal from "../models/meal";
 import { MEALS } from "../data/dummy_data";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
-import { useEffect, useLayoutEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import { Colors } from "../constants/colors";
 import { Title } from "../components/Title";
 import { Subtitle } from "../components/Subtitle";
 import { FavoriteBtn } from "../components/FavoriteBtn";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "MealDetailScreen">;
@@ -23,13 +24,33 @@ type Props = NativeStackScreenProps<RootStackParamList, "MealDetailScreen">;
 export const MealDetailScreen = ({ navigation, route }: Props) => {
   const meal = MEALS.find((meal) => meal.id == route.params.mealId);
 
+  const favoritesContext = useContext(FavoritesContext);
+
+  if (!meal) return <></>;
+
+
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <FavoriteBtn onPressed={() => console.log('hola')} />;
+        return <FavoriteBtn isActive={favoritesContext.isFavorite(meal?.id ?? '')} onPressed={toggleFavorite} />;
       }
     })
-  }, [])
+  }, [favoritesContext])
+
+  const toggleFavorite = () => {
+    const isFavorite = favoritesContext.ids.includes(meal.id)
+
+    console.log(favoritesContext.ids)
+    console.log(favoritesContext.ids)
+
+    if (isFavorite) {
+      favoritesContext.removeFavorite(meal.id)
+    } else {
+      console.log('to add ')
+      favoritesContext.addFavorite(meal.id)
+    }
+  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -37,11 +58,6 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
     });
   }, [navigation, meal]);
 
-  if (!meal) return <></>;
-
-  const onHeaderBtnPressed = () => {
-    console.log('pressed')
-  }
 
   return (
     <ScrollView nestedScrollEnabled style={{ marginBottom: 10 }}>
