@@ -15,13 +15,10 @@ const FavoritesContextProvider = ({ children }: { children: ReactNode }) => {
 
     const addFavorite = (id: string) => {
         setFavorites([...favorites, id]);
-        console.log('add favorite')
     }
 
     const removeFavorite = (idToRemove: string) => {
         setFavorites(favorites.filter((id) => id != idToRemove))
-        console.log('remove favorite')
-
     }
 
     const isFavorite = (id: string) => favorites.includes(id)

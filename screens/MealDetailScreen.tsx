@@ -41,13 +41,9 @@ export const MealDetailScreen = ({ navigation, route }: Props) => {
   const toggleFavorite = () => {
     const isFavorite = favoritesContext.ids.includes(meal.id)
 
-    console.log(favoritesContext.ids)
-    console.log(favoritesContext.ids)
-
     if (isFavorite) {
       favoritesContext.removeFavorite(meal.id)
     } else {
-      console.log('to add ')
       favoritesContext.addFavorite(meal.id)
     }
   }
