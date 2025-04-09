@@ -4,8 +4,11 @@ import { FavoritesContext } from "../store/context/favorites-context"
 import { MealsList } from "../components/MealsList"
 import Meal from "../models/meal"
 import { MEALS } from "../data/dummy_data"
+import { useNavigation } from "@react-navigation/native"
+import { Routes } from "../App"
 
 export const FavoritesScreen = () => {
+    const { navigate } = useNavigation<Routes>()
 
     const favoritesContext = useContext(FavoritesContext)
     const [meals, setMeals] = useState<Meal[]>([])
@@ -18,6 +21,6 @@ export const FavoritesScreen = () => {
 
     return <MealsList
         meals={meals}
-        onMealPressed={() => { }}
+        onMealPressed={(id) => { navigate('MealDetailScreen', { mealId: id }) }}
     />
 }
