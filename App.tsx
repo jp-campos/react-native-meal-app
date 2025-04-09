@@ -63,7 +63,7 @@ export default function App() {
               contentStyle: { backgroundColor: Colors.onAccent500 },
             }}
           >
-            <Stack.Screen name="MealsCategories" component={DrawerNavigator} />
+            <Stack.Screen name="MealsCategories" component={DrawerNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="MealsOverview" component={MealsScreen} />
             <Stack.Screen name="MealDetailScreen" component={MealDetailScreen} />
           </Stack.Navigator>
