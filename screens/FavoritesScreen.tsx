@@ -6,18 +6,19 @@ import Meal from "../models/meal"
 import { MEALS } from "../data/dummy_data"
 import { useNavigation } from "@react-navigation/native"
 import { Routes } from "../App"
+import { useTypedSelector } from "../hooks/redux-hooks"
 
 export const FavoritesScreen = () => {
     const { navigate } = useNavigation<Routes>()
 
-    const favoritesContext = useContext(FavoritesContext)
+    const favoriteMealsIds = useTypedSelector((state) => state.favoriteMeals.ids)
     const [meals, setMeals] = useState<Meal[]>([])
 
     useEffect(() => {
 
-        const hydratedMeals = MEALS.filter((meal) => favoritesContext.ids.includes(meal.id))
+        const hydratedMeals = MEALS.filter((meal) => favoriteMealsIds.includes(meal.id))
         setMeals(hydratedMeals)
-    }, [favoritesContext])
+    }, [favoriteMealsIds])
 
     return <MealsList
         meals={meals}

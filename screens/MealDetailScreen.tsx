@@ -17,6 +17,10 @@ import { Title } from "../components/Title";
 import { Subtitle } from "../components/Subtitle";
 import { FavoriteBtn } from "../components/FavoriteBtn";
 import { FavoritesContext } from "../store/context/favorites-context";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/redux/store";
+import { useTypedDispatch, useTypedSelector } from "../hooks/redux-hooks";
+import { addFavorite, removeFavorite } from "../store/redux/favorites";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "MealDetailScreen">;
@@ -24,27 +28,26 @@ type Props = NativeStackScreenProps<RootStackParamList, "MealDetailScreen">;
 export const MealDetailScreen = ({ navigation, route }: Props) => {
   const meal = MEALS.find((meal) => meal.id == route.params.mealId);
 
-  const favoritesContext = useContext(FavoritesContext);
-
+  const favoriteMealsIds = useTypedSelector((state) => state.favoriteMeals.ids)
+  const dispatch = useTypedDispatch();
   if (!meal) return <></>;
-
+  const isFavorite = favoriteMealsIds.includes(meal.id)
 
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <FavoriteBtn isActive={favoritesContext.isFavorite(meal?.id ?? '')} onPressed={toggleFavorite} />;
+        return <FavoriteBtn isActive={isFavorite} onPressed={toggleFavorite} />;
       }
     })
-  }, [favoritesContext])
+  }, [isFavorite])
 
   const toggleFavorite = () => {
-    const isFavorite = favoritesContext.ids.includes(meal.id)
 
     if (isFavorite) {
-      favoritesContext.removeFavorite(meal.id)
+      dispatch(removeFavorite(meal.id))
     } else {
-      favoritesContext.addFavorite(meal.id)
+      dispatch(addFavorite(meal.id))
     }
   }
 
